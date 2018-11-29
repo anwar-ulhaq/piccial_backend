@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 //set path folder public as root
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Piccial---Media-Sharing-Web-Application')));
 
 // use routes
 app.use('/admin', adminRoutes);
