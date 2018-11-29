@@ -1,1 +1,1 @@
-# piccial_backend
+# Piccial Backend and Frontend
