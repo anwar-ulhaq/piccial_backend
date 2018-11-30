@@ -234,6 +234,19 @@ section.menu-bar {
     display: none;
     font-weight: bold;
 }
+.menu-options a {
+    text-decoration: none;
+    color: #f9ca06;
+    text-transform: capitalize;
+    margin-top: 6vh;
+    display: inline-block;
+}
+.menu-options a:hover {
+    color: #dbb003;
+}
+.menu-options a:first-child {
+    margin-right: 1vw;
+}
 
 .options-wrapper {
     position: fixed;
@@ -502,7 +515,7 @@ section.list-items {
 .card-item {
     position: relative;
     width: 100%;
-    height: 28vh;
+    min-height: 35vh;
     overflow: hidden;
     border-radius: 5px;
 }
@@ -551,7 +564,7 @@ section.list-items {
     text-decoration: underline;
 }
 .card-author {
-    margin-top: -1vh;
+    /* margin-top: -1vh; */
     font-weight: normal;
     font-style: italic;
 }
@@ -702,7 +715,7 @@ img.big-image {
     transform: translateY(-50%);
     width: 50%;
 }
-.follow-button {
+.follow-button, .delete-post-button {
     padding: 0.8vh 1.5vw;
     position: absolute;
     top: 50%;
@@ -715,6 +728,13 @@ img.big-image {
     font-weight: bold;
     cursor: pointer;
     transition: 0.4s;
+}
+.delete-post-button {
+    background: rgb(211, 57, 57);
+    color: #dddddd;
+}
+.delete-post-button:hover {
+    background: rgb(173, 42, 42);
 }
 .follow-button:hover, .p-submit-button:hover {
     background: #dbb003;
@@ -814,6 +834,12 @@ img.user-comment-avatar {
     display: block;
     padding-left: 6vh;
     margin-top: -1vh;
+}
+.comment-delete-button {
+    color: rgb(173, 42, 42);
+    cursor: pointer;
+    float: right;
+    font-size: 1.2rem;
 }
 .product-scale {
     animation: product-scale .4s forwards;
@@ -926,6 +952,109 @@ form.upload-post-form {
 .scale-bottom-right {
     animation: scale-bottom-right .4s forwards;
 }
+
+/*****************CSS FOR ADMINISTRATOR PAGE***********/
+body.admin-page {
+    background: #242424;
+}
+
+table{
+    width: 100%;
+    table-layout: fixed;
+}
+.top {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: 30%;
+}
+.admin-page h1 {
+    color: #f9ca06;
+    text-transform: uppercase;
+    display: block;
+    width: 100%;
+    height: 20vh;
+    line-height: 20vh;
+    text-align: center;
+}
+.admin-search-bar {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.admin-search-button {
+    color: #f9ca06;
+    margin-left: .6vw;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.admin-search-button:hover {
+    font-size: 1.2rem;
+}
+.admin-search-bar input {
+    background: none;
+    border: 1.3px solid #f9ca06;
+    width: 20vw;
+    height: 5vh;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    padding-left: 1vw;
+    color: #dddddd;
+    outline: none;
+}
+.tbl-header{
+    background-color: #f9ca06;
+}
+.tbl-content{
+    height:auto;
+    overflow-x:auto;
+    margin-top: 0px;
+    border: 1px solid #f9ca06;
+}
+th{
+    padding: 2vh 1vw;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #0A1A27;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+td{
+    padding: 15px;
+    text-align: center;
+    vertical-align:middle;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: #fff;
+    border-bottom: solid 1px #f9ca06;
+}
+.delete-badge  {
+    padding: 1vh 1vw;
+    background: none;
+    border: 2px solid rgb(226, 70, 70);
+    color: #dddddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    outline: none;
+}
+.delete-badge:hover {
+    background: rgb(226, 70, 70);
+    color: #dddddd
+}
+select.permission {
+    background: none;
+    border: 1.5px solid #f9ca06;
+    outline: none;
+    width: 10vh;
+    height: 4vh;
+    font-size: .8rem;
+    color: #dddddd;
+}
+
 
 
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="css/stylesheet.css">
+    <title>Administrator</title>
+</head>
+<body class="admin-page">
+    <div class="top">
+        <h1>user management</h1>
+        <form action="" class="admin-search-bar">
+            <input type="text" placeholder="Search by name, id...">
+            <i class="fas fa-search admin-search-button"></i>
+        </form>
+    </div>
+    <section>
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Last logon time</th>
+                <th>Permission</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Phat Doan</td>
+                    <td>19:45 - 28/11/2018</td>
+                    <td>
+                        <select class="permission">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="delete-badge badge">delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Viet Tran</td>
+                    <td>19:46 - 28/11/2018</td>
+                    <td>
+                        <select class="permission">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="delete-badge badge">delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Anwar</td>
+                    <td>19:47 - 28/11/2018</td>
+                    <td>
+                        <select class="permission">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </td>
+                    <td>
+                        <button class="delete-badge badge">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+    <script src="/scripts/admin.js"></script>
+</body>
+</html>
