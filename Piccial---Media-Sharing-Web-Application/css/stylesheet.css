@@ -102,6 +102,7 @@ form.user-form a {
     display: block;
     color: #f9ca06;
     text-align: center;
+    margin-top: 1vh;
 }
 form.user-form a:hover {
     color: #c5a72d;
