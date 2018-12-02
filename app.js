@@ -5,6 +5,9 @@ const bodyParser        = require('body-parser');
 const session           = require('express-session');           //Session handling
 const passport          = require('passport');                  //Authentication handling
 const LocalStrategy     = require('passport-local').Strategy;   //Authentication strategy for Passport
+const fs                = require('fs');                        //File handler
+const https             = require('https');                     //
+const http              = require('http');                      //
 
 
 //Routes
@@ -94,9 +97,17 @@ passport.deserializeUser((id, done) => {
 
 const app = express();
 
+//  Key and Certificate file for use with Https
+const sslkey  = fs.readFileSync('/etc/pki/tls/private/ca.key');
+const sslcert = fs.readFileSync('/etc/pki/tls/certs/ca.crt');
+const options = {
+  key: sslkey,
+  cert: sslcert
+};
+
 //Use ejs
-app.set('view engine', 'ejs');
-app.set('views', 'views');
+//app.set('view engine', 'ejs');
+//app.set('views', 'views');
 
 //Use body-parser middleware for Text and JSON
 app.use(bodyParser.urlencoded({
@@ -111,8 +122,8 @@ app.use(session({
   secret            : process.env.SECRET,
   name              : process.env.COOKIE_NAME,
   resave            : false,
-  saveUninitialized : true
-  //cookie            : { secure  : true  }
+  saveUninitialized : true,
+  cookie            : { secure  : true  }
 }));
 
 app.use(passport.initialize());
@@ -129,9 +140,18 @@ app.use(mainRoutes);
 
 
 
-app.listen(3000, () => {
+/*app.listen(3000, () => {
   console.log('Listening on localhost:3000');
-});
+});*/
+
+http.createServer((req, res) => {
+  const redir = 'https://' + req.headers.host + '/node' + req.url;
+  console.log(redir);
+  res.writeHead(301, { 'Location': redir });
+  res.end();
+}).listen(8000);
+https.createServer(options, app).listen(3000);
+
 
 //    [[{"userId":1,"username":"testuser","password":"password","permission":2}],
 //    [[{"userID":1,"username":"testuser","email":"test@test.com"}],
