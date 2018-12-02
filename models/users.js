@@ -34,4 +34,10 @@ module.exports = class Users {
             'INSERT INTO login (userId, timeLogin) VALUES (?, ?)',
             [userId, time]);
     }
+
+    static checkID(userID) {
+        return db.execute('SELECT userId FROM users WHERE userID =?', [userID]);
+        //console.log("Database responce = " + queryResponce);
+        //return queryResponce;
+    }
 }
