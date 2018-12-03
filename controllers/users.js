@@ -52,15 +52,15 @@ exports.postSignup = (req, res, next) => { //add user
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
-    User.checkUserExist(username)
+   User.checkUserExist(username)
         .then(rows => {
             //console.log(rows[0]);
             if (rows[0].length > 0) { //user exist
                 res.render('signup', {
-                    username: username,
-                    pageTitle: 'Sign Up',
-                    path: '/signup',
-                    userExisted: true
+                    username    : username,
+                    pageTitle   : 'Sign Up',
+                    path        : '/signup',
+                    userExisted : true
                 });
             } else { //user not exist, can add new user
                 const user = new User(username, password, email);

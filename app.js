@@ -8,7 +8,7 @@ const LocalStrategy     = require('passport-local').Strategy;   //Authentication
 const fs                = require('fs');                        //File handler
 const https             = require('https');                     //
 const http              = require('http');                      //
-
+const multer            = require('multer');
 
 //Routes
 const usersRoutes       = require('./routes/users');
@@ -108,11 +108,11 @@ const options = {
 //Use ejs
 //app.set('view engine', 'ejs');
 //app.set('views', 'views');
-
+app.use(multer().none());
 //Use body-parser middleware for Text and JSON
-app.use(bodyParser.urlencoded({
+/*app.use(bodyParser.urlencoded({
     extended: false
-}));
+}));*/
 app.use(bodyParser.json());
 //  App is behind proxy server so we need to set trust proxy
 //  app.set('trust proxy', 1)
@@ -130,7 +130,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //set path folder public as root
-//app.use(express.static(path.join(__dirname, 'Piccial---Media-Sharing-Web-Application')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // use routes
 app.use('/admin', adminRoutes);
@@ -149,8 +149,12 @@ http.createServer((req, res) => {
   console.log(redir);
   res.writeHead(301, { 'Location': redir });
   res.end();
-}).listen(8000);
-https.createServer(options, app).listen(3000);
+}).listen(8000 ,() => {
+  console.log('HTTP Listening on localhost:8000');
+});
+https.createServer(options, app).listen(3000 ,() => {
+  console.log('HTTPS Listening on localhost:3000');
+});
 
 
 //    [[{"userId":1,"username":"testuser","password":"password","permission":2}],

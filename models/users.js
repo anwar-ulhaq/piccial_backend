@@ -40,4 +40,4 @@ module.exports = class Users {
         //console.log("Database responce = " + queryResponce);
         //return queryResponce;
     }
-}
+};
