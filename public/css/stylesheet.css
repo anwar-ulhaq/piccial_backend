@@ -253,8 +253,8 @@ section.menu-bar {
     position: fixed;
     top: 12%;
     right: 4%;
-    width: 12vh;
-    height: 10vh;
+    width: 15vh;
+    height: 12vh;
     color: #0A1A27;
     font-size: 0.9rem;
     background: #f9ca06;
@@ -262,11 +262,12 @@ section.menu-bar {
     border-radius: 2px;
     opacity: 0;
     visibility: hidden;
+    transform-origin: 0 0;
 }
 .options-wrapper a {
     display: inline-block;
     box-sizing: border-box;
-    height: 5vh;
+    height: 6vh;
     width: 100%;
     line-height: 5vh;   
     padding-left: 2vh;
@@ -275,8 +276,15 @@ section.menu-bar {
     text-decoration: none;
     color: #0A1A27;
 }
-.options-wrapper a:first-child {
+.options-wrapper.admin {
+    width: 23vh!important;
+    height: 18vh;
+}
+.options-wrapper a {
     border-bottom: 1px solid rgba(10, 26, 39, 0.233);
+}
+.drop-down-menu-animation {
+    animation: drop-down-menu-animation .3s forwards;
 }
 .menu-bar.scroll {
     background: #242424;
@@ -298,9 +306,10 @@ section.menu-bar {
 .menu-bar-animation {
     animation: menu-slide-down .2s forwards;
 }
-.visible {
-    opacity: 1;
-    visibility: visible;
+.fa-cog.drop-down-button {
+    display: inline-block;
+    color: #f9ca06;
+    line-height: 10vh;
 }
 /***************CSS FOR ADD ITEM BUTTON************/
 .add-item-button {
@@ -467,6 +476,7 @@ section.menu-bar {
     cursor: pointer;
     transition: 0.4s;
     font-weight: 900;
+    text-decoration: none;
 }
 .social {
     margin-top: 2.5vh;
@@ -564,8 +574,12 @@ section.list-items {
 .card-title:hover {
     text-decoration: underline;
 }
+.card-title a {
+    color: #dddddd;
+    text-decoration: none;
+    display: block;
+}
 .card-author {
-    /* margin-top: -1vh; */
     font-weight: normal;
     font-style: italic;
 }
@@ -611,6 +625,29 @@ section.product {
     opacity: 0;
     visibility: hidden;
 }
+.section-product-wrapper {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url(../images/background.jpg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    border-radius: 10px;
+    z-index: 6;
+}
+.white-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: .9;
+}
 .dark-bg {
     position: fixed;
     width: 100%;
@@ -645,28 +682,38 @@ section.product {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    display: grid;
-    grid-template-rows: 2fr 1fr;
+}
+.back-button {
+    color: #242424;
+    font-size: 2rem;
+    margin-bottom: 1vh;
+    cursor: pointer;
+    text-decoration: none;
+}
+.back-button:hover {
+    color: #947600;
 }
 .big-image-wrapper {
     width: 100%;
-    height: 55vh;
+    height: 65%;
     overflow: hidden;
 }
 img.big-image {
     width: 100%;
+    min-height: 100%;
     border-radius: 10px;
 }
 .small-images {
+    margin-top: 5%;
     width: 100%;
-    height: 100%;
+    height: 25%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 1.5vw;
 }
 .small-image-wrapper {
     width: 100%;
-    height: 60%;
+    height: 70%;
     border-radius: 5px;
     position: relative;
     overflow: hidden;
@@ -684,7 +731,7 @@ img.big-image {
 .product-detail {
     padding: 1vw;
     position: relative;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 .product-detail-wrapper {
     display: block;
@@ -692,6 +739,7 @@ img.big-image {
 .product-info-wrapper {
     position: relative;
     height: 10vh;
+    color: #242424;
 }
 .author-avatar {
     width: 8vh;
@@ -717,7 +765,7 @@ img.big-image {
     width: 50%;
 }
 .follow-button, .delete-post-button {
-    padding: 0.8vh 1.5vw;
+    padding: 1.2vh 1.7vw;
     position: absolute;
     top: 50%;
     right: 0;
@@ -751,17 +799,28 @@ img.big-image {
     margin-top: 1vh;
 }
 .product-social i {
-    font-size: 1.2rem;
-    margin-left: 3vw;
-    margin-top: 2vh;
-    color: #947600;
+    font-size: 1.4rem;
+    margin: 2.5vh 2vw 2vh 0;
+    color: #242424;
 }
 .product-social i:first-child {
     margin-left: 0;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.product-social i:first-child:hover {
+    color: #947600;
+}
+.vote-button-clicked {
+    color: #947600!important;
+}
+.vote-clicked-animation {
+    animation: vote-clicked-animation .4s forwards;
 }
 .product-social span {
     font-family: 'Raleway', sans-serif;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
 }
 .product-date {
     color: gray;
@@ -774,7 +833,7 @@ img.big-image {
     height: 8vh;
 }
 .product-comment input.comment {
-    padding: 1.2vh;
+    padding: 1.5vh;
     position: absolute;
     width: 85%;
     top: 50%;
@@ -799,8 +858,12 @@ img.big-image {
     text-align: center;
     line-height: 6vh;
     border-radius: 50%;
-    color: #dddddd;
+    color: #fff;
     cursor: pointer;
+}
+.comment-submit a {
+    color: #fff;
+    text-decoration: none;
 }
 .comments-wrapper {
     width: 100%;
@@ -828,22 +891,27 @@ img.user-comment-avatar {
     font-size: 1rem;
     font-weight: bold;
     margin-left: 6vh;
+    color: #242424;
 }
 .user-comment-text {
     font-size: 0.9rem;
     line-height: 1.4;
     display: block;
     padding-left: 6vh;
-    margin-top: -1vh;
+    margin-top: 1vh;
 }
 .comment-delete-button {
-    color: rgb(173, 42, 42);
+    color: rgb(173, 42, 42)!important;
     cursor: pointer;
     float: right;
     font-size: 1.2rem;
+    text-decoration: none;
 }
 .product-scale {
     animation: product-scale .4s forwards;
+}
+.blur {
+    animation: blur .5s forwards;
 }
 
 /*****************CSS FOR ADD-ITEM*********************/
@@ -1039,8 +1107,15 @@ td{
     color: #dddddd;
     border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: 0.2s;
     outline: none;
+}
+.update-badge {
+    border: 2px solid rgb(2, 145, 2);
+}
+.update-badge:hover {
+    background: rgb(2, 145, 2)!important;
+    color: #dddddd;
 }
 .delete-badge:hover {
     background: rgb(226, 70, 70);
@@ -1056,10 +1131,108 @@ select.permission {
     color: #dddddd;
 }
 
+/*****************CSS FOR USER PAGE********************/
+.back-button-user-page {
+    color: #f9ca06;
+    margin-top: 5%;
+    margin-left: 5%;
+}
+.user-page-dark-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    background: rgba(17, 13, 13, 0.801);
+}
+.user-avatar-wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: absolute;
+    z-index: 5;
+}
+.img-wrapper {
+    position: relative;
+}
+.img-wrapper-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #f9ca06;
+}
+.img-wrapper img {
+    width: 40vh;
+    height: 40vh;
+    border-radius: 50%;
+}
+.change-ava-text {
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    margin: 3vh 0;
+}
+.img-wrapper form {
+    text-align: center;
+    display: inline-block;
+}
+.img-wrapper form input {
+    font-size: 1rem;
+}
+.user-info-wrapper {
+    position: relative;
+    color: #dddddd;
+    width: 100%;
+    height: 100%;
+}
+.user-info-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+.user-info-wrapper i {
+    color: #f9ca06;
+    font-size: 1.6rem;
+    display: inline;
+}
+.username-text, .user-logonTime-text, .user-n-post-text {
+    display: inline;
+    margin-left: 2vw;
+    font-size: 1.5rem;
+}
+.user-info-logonTime, .user-info-n-post {
+    margin-top: 5vh;
+}
+
 
 
 
 /*****************CSS FOR ANIMATION********************/
+@keyframes drop-down-menu-animation {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        opacity: 1;
+        visibility: visible;
+        transform: scaleY(1);
+    }
+}
+@keyframes vote-clicked-animation {
+    0% {
+        transform: scale(0.4);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 @keyframes menu-slide-down {
     0% {
         opacity: 0;
@@ -1283,18 +1456,106 @@ select.permission {
     }
     section.product {
         grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+    .drop-down-button {
+        display: none;
+    }
+    .back-button {
+        font-size: 1.5rem;
     }
     .big-image-wrapper {
-        height: 27vh;
+        height: 30vh;
     }
     .product-close-button {
         font-size: 1.5rem;
         top: 1%;
         right: 2%;
     }
-
+    .options-wrapper {
+        top: 10%;
+    }
+    .section-product-wrapper {
+        grid-template-columns: unset;
+        grid-template-rows: 1.2fr 1fr;
+    }
+    .m-user-avatar {
+        margin-top: 3vh!important;
+    }
+    .product-social i:first-child:hover {
+        color: unset;
+    }
+    .search-box {
+        height: 10vh!important;
+    }
+    
+    section.upload-post.product {
+        width: 100%;
+        height: 100%;
+        border-radius: 0px;
+    }
+    .post-caption-container {
+        width: 90%;
+        height: 95%;
+    }
+    form.upload-post-form {
+        grid-template-columns: unset;
+        grid-template-rows: .8fr 1fr;
+    }
+    .img-prev-wrapper {
+        width: 60%;
+        height: auto;
+    }
+    .product-close-button {
+        z-index: 9999;
+        top: unset;
+        bottom: 2%;
+        right: 5%;
+        color: #242424;
+    }
+    .user-avatar-wrapper {
+        grid-template-columns: unset;
+    }
+    .img-wrapper img {
+        width: 30vh;
+        height: 30vh;
+    }
+    .user-info-container div {
+        font-size: 1rem;
+        text-align: center;
+    }
+    .follow-button, .delete-post-button, .p-submit-button {
+        padding: 1.5vh 4vw;
+    }
+    .admin-search-bar {
+        width: 100%;
+        text-align: center;
+    }
+    .admin-search-bar input {
+        width: 50vw;
+        font-size: .7rem;
+        padding-left: 3vw;
+    }
+    th {
+        font-size: 0.5rem;
+    }
+    td {
+        font-size: 0.5rem;
+    }
+    select.permission {
+        font-size: .5rem;
+        width: 7.5vh;
+    }
+    .update-badge {
+        width: 7.5vh;
+        margin-top: 1vh;
+        border: 2px solid rgb(2, 145, 2);
+    }
+    .delete-badge {
+        font-size: .5rem;
+    }
 }
-@media (min-width: 768px) and (max-width: 1023px) { /*for phablet, tablet devices*/
+@media (min-width: 768px) and (max-width: 1024px) { /*for phablet, tablet devices*/
     .logo {
         width: 20em;
     }
@@ -1325,17 +1586,23 @@ select.permission {
     }
     .menu-logo {
         height: 8vh;
-        padding-top: 5vh;
+        padding-top: 2vh;
     }
     .menu-options .m-user-avatar {
         width: 5vh;
         height: 5vh;
-        margin-top: 6vh;
+        margin-top: 3vh!important;
     }
     .menu-options .user-name {
         display: inline-block;
         height: 100%;
         transform: translateY(-15%);
+    }
+    .fa-cog.drop-down-button {
+        font-size: 1.5rem;
+    }
+    .search-box {
+        height: 5vh!important;
     }
     .search-box-wrapper {
         top: 3vh;
@@ -1345,6 +1612,9 @@ select.permission {
     }
     .search-button i {
         font-size: 1.5rem;
+    }
+    .drop-down-button {
+        display: none;
     }
     .add-item-button {
         width: 6vh;
@@ -1373,22 +1643,88 @@ select.permission {
     }
     .card-item {
         height: 22vh;
+        min-height: unset;
     }
     section.product {
         grid-template-columns: 1fr;
     }
+    .section-product-wrapper {
+        grid-template-columns: unset;
+        grid-template-rows: 2fr 1fr;
+    }
+    .product-social i:first-child:hover {
+        color: unset;
+    }
     .big-image-wrapper {
-        height: 27vh;
+        height: 40vh;
     }
     .product-close-button {
         top: 5%;
+    }
+    section.upload-post.product {
+        width: 80%;
+        height: 80%;
+        border-radius: 10px;
+    }
+    .post-caption-container {
+        width: 90%;
+        height: 95%;
+    }
+    form.upload-post-form {
+        grid-template-columns: unset;
+        grid-template-rows: .8fr 1fr;
+    }
+    .img-prev-wrapper {
+        width: 60%;
+        height: auto;
+    }
+    .user-avatar-wrapper {
+        grid-template-columns: unset;
+    }
+    .img-wrapper img {
+        width: 30vh;
+        height: 30vh;
+    }
+    .user-info-container div {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    .follow-button, .delete-post-button, .p-submit-button {
+        padding: 1.2vh 4vw;
+    }
+    .admin-search-bar {
+        width: 100%;
+        text-align: center;
+    }
+    .admin-search-bar input {
+        width: 50vw;
+        font-size: .7rem;
+        padding-left: 3vw;
+    }
+    th {
+        font-size: 1rem;
+    }
+    td {
+        font-size: 1rem;
+    }
+    select.permission {
+        font-size: .8rem;
+        width: 7.5vh;
+    }
+    .update-badge {
+        width: 7.5vh;
+        margin-top: 1vh;
+        border: 2px solid rgb(2, 145, 2);
+    }
+    .delete-badge {
+        font-size: .8rem;
     }
 }
 
 
 
 
-@media only screen and (min-width: 1024px) { /*for common laptops > 13" */
+@media only screen and (min-width: 1025px) { /*for common laptops > 13" */
     .logo {
         width: 18em;
     }
@@ -1493,6 +1829,11 @@ select.permission {
         display: inline-block;    
         height: 100%;
         cursor: pointer;    
+    }
+    .fa-cog.drop-down-button {
+        line-height: 15vh;
+        transform: unset;
+        font-size: 1.5rem;
     }
     /***************CSS FOR ADD ITEM BUTTON************/
     .add-item-button:hover {

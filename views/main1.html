@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i,800,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
         crossorigin="anonymous">
-    <title><%= pageTitle%></title>
+    <title>Piccial - Foodie media</title>
     <link rel="stylesheet" href="css/stylesheet.css">
 
 </head>
@@ -30,16 +30,14 @@
             </div>
         </div>
         <div class="menu-options">
-            <img src="/avatar/<%= user.avataUrl%>" alt="#" class="m-user-avatar">
-            <span class="user-name"><%= user.username%></span>
+            <img src="images/groupava.jpg" alt="#" class="m-user-avatar">
+            <span class="user-name">Piccial</span>
             <i class="fas fa-angle-down drop-down-button"></i>
         </div>
     </section>
     <div class="options-wrapper">
-        
-        <a href="/user-info-update" class="user-option">User</a>
-        
-        <a href="/logout"class="sign-out-option">Sign out</a>              
+        <a href="/user-page.html" class="user-option">User</a>
+        <a href="/index.html"class="sign-out-option">Sign out</a>              
     </div>
     <div class="add-item-button fas fa-plus"></div>
     <!-- begin section food of the day -->
@@ -112,133 +110,100 @@
     </section>
     <!-- begin card item -->
     <section class="list-items">
-         <% foods.forEach(food => { %> 
         <div class="card-item">
-            <img src="/food-img/<%= food.imageUrl%>" class="card-image" />
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
             <div class="card-gradient-bg"></div>
             <div class="card-title">
-                <a href="/food-detail?foodId=<%= food.foodId%>" class="card-food"><%= food.title%></a>
-                <a href="/food-detail?foodId=<%= food.foodId%>" class="card-author"><%= user.username%></a>
-                <input type="hidden" value="<%= food.foodId%>" id="foodId">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
             </div>
             <div class="card-social-icons">
                 <i class="far fa-heart"><span>112</span></i>
                 <i class="far fa-comment-alt"><span>25</span></i>
             </div>
         </div>
-        <% })%>
-        
+        <div class="card-item">
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
+            <div class="card-gradient-bg"></div>
+            <div class="card-title">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
+            </div>
+            <div class="card-social-icons">
+                <i class="far fa-heart"><span>112</span></i>
+                <i class="far fa-comment-alt"><span>25</span></i>
+            </div>
+        </div>
+        <div class="card-item">
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
+            <div class="card-gradient-bg"></div>
+            <div class="card-title">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
+            </div>
+            <div class="card-social-icons">
+                <i class="far fa-heart"><span>112</span></i>
+                <i class="far fa-comment-alt"><span>25</span></i>
+            </div>
+        </div>
+        <div class="card-item">
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
+            <div class="card-gradient-bg"></div>
+            <div class="card-title">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
+            </div>
+            <div class="card-social-icons">
+                <i class="far fa-heart"><span>112</span></i>
+                <i class="far fa-comment-alt"><span>25</span></i>
+            </div>
+        </div>
+        <div class="card-item">
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
+            <div class="card-gradient-bg"></div>
+            <div class="card-title">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
+            </div>
+            <div class="card-social-icons">
+                <i class="far fa-heart"><span>112</span></i>
+                <i class="far fa-comment-alt"><span>25</span></i>
+            </div>
+        </div>
+        <div class="card-item">
+            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
+            <div class="card-gradient-bg"></div>
+            <div class="card-title">
+                <a href="/product.html" class="card-food">chicken tinga tacos</a>
+                <a href="/product.html" class="card-author">karina alfimova</a>
+            </div>
+            <div class="card-social-icons">
+                <i class="far fa-heart"><span>112</span></i>
+                <i class="far fa-comment-alt"><span>25</span></i>
+            </div>
+        </div>
     </section>
     <!-- begin section product -->
-    <div class="dark-bg"></div>
     <i class="fas fa-times product-close-button"></i>
-    <section class="product">
-        <div class="product-images">
-            <div class="product-images-wrapper">
-                <div class="big-image-wrapper">
-                    <img class="big-image" src="/images/Tonkatsu-Ramen-Tall2.jpg" alt="#">
-                </div>
-                <div class="small-images">
-                    <div class="small-image-wrapper">
-                        <img src="images/Tonkatsu-Ramen-Tall2.jpg" alt="#">
-                    </div>
-                    <div class="small-image-wrapper">
-                        <img src="images/Chicken-Tinga-Tacos-6.jpg" alt="#">
-                    </div>
-                    <div class="small-image-wrapper">
-                        <img src="images/background.jpg" alt="#">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="product-detail">
-            <div class="product-detail-wrapper">
-                <div class="product-info">
-                    <div class="product-info-wrapper">
-                        <img src="images/groupava.jpg" class="author-avatar">
-                        <div class="author-name">Piccial team</div>
-                        <div class="product-date">November 21 2018</div>
-                        <div class="follow-button">follow</div>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-name">Tonkatsu Ramen</div>
-                    <div class="product-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non
-                        qui modi doloribus necessitatibus voluptas porro. Voluptate.</div>
-                    <div class="product-social">
-                        <i class="far fa-heart">
-                            <span>112</span>
-                        </i>
-                        <i class="far fa-comment-alt">
-                            <span>25</span>
-                        </i>
-                    </div>
-                    <div class="product-comment">
-                        <form action="">
-                            <input type="text" class="comment" placeholder="Comment...">
-                            
-                            <div class="comment-submit"><i class="fas fa-paper-plane"></i></div>
-                        </form>
-                    </div>
-                </div>
-                <div class="user-comments">
-                    <div class="comments-wrapper">
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque suscipit minus aperiam adipisci deleniti, eveniet incidunt
-                                obcaecati.</div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque </div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="dark-bg"></div>
     <section class="upload-post product">
-        <form action="/add-food" class="upload-post-form" enctype="multipart/form-data" method="POST">
+        <form action="  " class="upload-post-form">
             <div class="upload-images">
                 <div class="images-container">
                     <div class="img-prev-wrapper">
                         <div class="images-preview"></div>
                     </div>
                 </div>
-                <input required multiple accept="image/*" type="file" name="img-foods" class="choose-img" onchange="preview_images(this)" >               
+                <input required multiple accept="image/*" type="file" name="images" class="choose-img" onchange="preview_images(this)">               
             </div>
             <div class="post-caption">
                 <div class="post-caption-container">
-                    <input required class="p-food-name" type="text" placeholder="Title" name="title">
-                    <textarea class="p-food-caption" placeholder="Content" name="content" rows="10" cols="30"></textarea>
+                    <input required class="p-food-name" type="text" placeholder="How do you call this?">
+                    <textarea class="p-food-caption" placeholder="Say something about it..." name="message" form="upload-post-form" rows="10" cols="30"></textarea>
                     <button type="submit" class="p-submit-button">post</button>
                 </div>
             </div>
         </form>
-    </section>
         <script src="scripts/main.js"></script>
 </body>
 

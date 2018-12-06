@@ -1,1 +1,0 @@
-# Piccial Backend and Frontend

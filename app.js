@@ -1,101 +1,97 @@
-const path = require('path');
-const express           = require('express');
-const bodyParser        = require('body-parser');
-//Anwar
-const session           = require('express-session');           //Session handling
-const passport          = require('passport');                  //Authentication handling
-const LocalStrategy     = require('passport-local').Strategy;   //Authentication strategy for Passport
+require("dotenv").config();
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
+const User = require("./models/users");
+const multer = require('multer');
+const csrf = require('csurf');
 const fs                = require('fs');                        //File handler
 const https             = require('https');                     //
-const http              = require('http');                      //
-const multer            = require('multer');
+const http              = require('http');
 
-//Routes
-const usersRoutes       = require('./routes/users');
-const mainRoutes        = require('./routes/main');
-const adminRoutes       = require('./routes/admin');
-//const pasport           = require('./controllers/passport');
-const User              = require('./models/users');
-
-passport.use(new LocalStrategy(
-    (username, password, done) => {
-      console.log('Inside local strategy callback. user is ' + username + ' and password is ' + password);
-      // here is where you make a call to the database
-      // to find the user based on their username or email address
-      // for now, we'll just pretend we found that it was users[0]
-      User.login(username, password)
-      .then((rows) => {
-        //console.log("Query result is "+ JSON.stringify(rows));
-        //console.log('aaa' + rows[0][0].userId);
-        if (rows[0].length > 0) { //match username and password --> login
-
-          console.log('UserID' + rows[0][0].userId);
-          console.log('Name' + rows[0][0].username);
-          console.log('password' + rows[0][0].password);
-          User.loginManager(rows[0][0].userId) //add userId and timeLogin into table login
-              .then(() => {
-
-              })
-              .catch(err => console.log(err));
-          return done(null,{
-            "userid":rows[0][0].userId,
-            "username":rows[0][0].username,
-            "password":rows[0][0].password,
-            "permission": rows[0][0].permission
-          });
-          //return done(null, user)
-
-        } else {
-          //Failed attemped
-          res.render('index', {
-            pageTitle: 'Login',
-            path: '/',
-          });
-          return done(null, false);
-        }
-      })
-      .catch(err => console.log(err));
-
-    }
-));
-
-//passport.serializeUser();
-passport.serializeUser((user, done) => {
-  console.log('Inside serializeUser callback. User id is save to the session file store here');
-  console.log("UserID is " + user.userid);
-  done(null, user.userid);
-});
-//passport.deserializeUser();
-passport.deserializeUser((id, done) => {
-  console.log('Inside deserializeUser callback');
-  console.log(`The user id passport saved in the session file store is: ${id}`);
-  //Need to ask database if this ID is existed. If yes, req.Auth become true or else false.
-  User.checkID(id)
-    .then( (queryResponce) => {
-      //console.log(JSON.stringify(queryResponce[0]));
-    //console.log(JSON.stringify(queryResponce));
-    if (queryResponce[0].length > 0) {
-      console.log('UserID : ' + queryResponce[0][0].userId);
-      //console.log('Name' + queryResponce[0][0].username);
-      //console.log('password' + queryResponce[0][0].password);
-      return done(null,{
-        "userid":queryResponce[0][0].userId
-      });
-    }
-    else
-    {
-      return done(null, false);
-    }
-  }).catch(err => console.log(err));
-
-  //const user = User.checkID(id) === id ? id : false;
-
-  //const useer = user.userid === id ? user : false;
-  //console.log("User ID of deserializeUser is " + user);
-  //done(null, user);
-});
+//Router
+const usersRoutes = require("./routes/users");
+const mainRoutes = require("./routes/main");
+const adminRoutes = require("./routes/admin");
+const guestRoutes = require('./routes/guest');
+const mediaRoutes       = require('./routes/media');
+const foodRoutes = require('./routes/food');
 
 const app = express();
+
+const store = new MySQLStore({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS
+});
+
+const csrfProtection = csrf();
+
+//Use ejs
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+//Use body-parser
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+
+
+
+//set path folder public as root
+app.use(express.static(path.join(__dirname, "public")));
+
+//session
+app.set('trust proxy');
+app.use(
+  session({
+    secret: process.env.SECRET,
+    name              : process.env.COOKIE_NAME,
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+    cookie            : { secure  : true  }
+  })
+);
+
+//app.use(csrfProtection);
+
+app.use((req, res, next) => {
+  //console.log(req.session.user);
+  if (!req.session.user) {
+    return next();
+  }
+  User.findById(req.session.user.userId)
+    .then(user => {
+      //console.log(user[0][0]);
+      req.user = user[0][0];
+      next();
+    })
+    .catch(err => console.log(err));
+});
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  //res.locals.csrfToken = req.csrfToken();
+  next();
+});
+
+
+
+// use routes
+app.use(adminRoutes);
+app.use(usersRoutes);
+app.use(mainRoutes);
+app.use(guestRoutes);
+//app.use(mediaRoutes);
+app.use(foodRoutes);
+
+//app.listen(3000);
 
 //  Key and Certificate file for use with Https
 const sslkey  = fs.readFileSync('/etc/pki/tls/private/ca.key');
@@ -105,47 +101,8 @@ const options = {
   cert: sslcert
 };
 
-//Use ejs
-//app.set('view engine', 'ejs');
-//app.set('views', 'views');
-app.use(multer().none());
-//Use body-parser middleware for Text and JSON
-/*app.use(bodyParser.urlencoded({
-    extended: false
-}));*/
-app.use(bodyParser.json());
-//  App is behind proxy server so we need to set trust proxy
-//  app.set('trust proxy', 1)
-app.set('trust proxy');
-//Create a Session
-app.use(session({
-  secret            : process.env.SECRET,
-  name              : process.env.COOKIE_NAME,
-  resave            : false,
-  saveUninitialized : true,
-  cookie            : { secure  : true  }
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-//set path folder public as root
-app.use(express.static(path.join(__dirname, 'public')));
-
-// use routes
-app.use('/admin', adminRoutes);
-app.use(usersRoutes);
-app.use(mainRoutes);
-
-
-
-
-/*app.listen(3000, () => {
-  console.log('Listening on localhost:3000');
-});*/
-
 http.createServer((req, res) => {
-  const redir = 'https://' + req.headers.host + '/node' + req.url;
+  const redir = 'https://' + req.headers.host + req.url;
   console.log(redir);
   res.writeHead(301, { 'Location': redir });
   res.end();
@@ -156,6 +113,3 @@ https.createServer(options, app).listen(3000 ,() => {
   console.log('HTTPS Listening on localhost:3000');
 });
 
-
-//    [[{"userId":1,"username":"testuser","password":"password","permission":2}],
-//    [[{"userID":1,"username":"testuser","email":"test@test.com"}],

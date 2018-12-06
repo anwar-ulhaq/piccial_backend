@@ -18,16 +18,17 @@
     <form action="/signup" method="POST" class="sign-up user-form">
         <input id="username" class="input" autocomplete="off" required type="text" placeholder="Username" name="username" />
         <% if(userExisted == true) { %>
-        <span style="color: red">Username
-            <%= username%> is exist. Please enter the another username</span>
+        <p style="color: red;padding-bottom: 20px;">Username
+            <%= username%> is exist. Please enter the another username</p>
         <% } %>
         <input id="password" class="input" autocomplete="off" required type="password" placeholder="Password" value=""
             name="password" />
         <input id="email" class="input" autocomplete="off" required type="email" placeholder="Email" name="email" />
-        <button type="submit">Sign up</button>
+        
+        <input class="form-button" type="submit" value="sign up">
         <div class="or-text">OR</div>
         <a class="sign-up" href="/">Already have an account?</a>
-        <a class="guest-login" href="/main.html">Continue as a guest</a>
+        <a class="guest-login" href="/guest">Continue as a guest</a>
 
     </form>
     <script src="scripts/signup.js"></script>

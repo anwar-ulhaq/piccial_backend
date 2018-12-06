@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,26 +9,26 @@
     <link rel="stylesheet" href="css/stylesheet.css">
     <title>Piccial</title>
 </head>
-
 <body class="front-page">
     <div class="logo-section">
         <img src="images/logo.png" class="logo" alt="logo">
     </div>
     <div class="login-section">
-        <button class="get-start-button">get started</button>
         <form class="user-form" action="/login" method="POST">
             <input class="input" required autocomplete="off" type="text" placeholder="Username" name="username" />
+            <%if(!loginPassed) {%>
+                <p style="color: red;padding-bottom: 20px;">Username or Password is not correct!!!</p>
+            <% }%>
             <input class="input" required type="password" placeholder="Password" name="password" />
+            
+            <input type="submit" class="form-button" value="login">
 
-            <button type="submit">Login</button>
             <div class="or-text">OR</div>
             <a class="sign-up" href="/signup">Sign up</a>
-            <a class="guest-login" href="/main.html">Continue as a guest</a>
-            <button type="submit">log</button>
+            <a class="guest-login" href="/guest">Continue as a guest</a>
         </form>
     </div>
 
-    <script src="scripts/script.js"></script>
+    <script src="scripts/script.js"></script> 
 </body>
-
 </html>
