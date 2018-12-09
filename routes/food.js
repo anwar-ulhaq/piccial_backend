@@ -17,9 +17,9 @@ const foodStorage = multer.diskStorage({
 
 const foodFilter = (req, file, cb) => {
   if (
-      file.mimetype === 'image/png' ||
-      file.mimetype === 'image/jpg' ||
-      file.mimetype === 'image/jpeg'
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
   ) {
     cb(null, true);
   } else {
@@ -29,7 +29,7 @@ const foodFilter = (req, file, cb) => {
 
 //multer
 
-const uploadFoodImg = multer({ storage: foodStorage, fileFilter: foodFilter }).array('img-foods');
+const uploadFoodImg = multer({ storage: foodStorage, fileFilter: foodFilter }).array('img-foods')
 
 router.post('/add-food', isAuth, uploadFoodImg,foodController.postAddFood);
 

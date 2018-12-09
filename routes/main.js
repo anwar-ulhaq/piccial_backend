@@ -5,4 +5,6 @@ const isAuth = require('../controllers/is-auth');
 
 router.get('/main', isAuth, mainController.getMain);
 
+router.get('/main-search', isAuth, mainController.getMainSearch);
+
 module.exports = router;

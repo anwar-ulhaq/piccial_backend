@@ -1,7 +1,7 @@
 const product_small_images = document.querySelectorAll('.small-image-wrapper img');
 const product_big_image = document.querySelector('.big-image');
-const vote_button =  document.querySelector('i.fas.fa-heart');
-
+const input_comment = document.querySelector('.comment');
+const comment_button = document.querySelector('.comment-submit');
 for (let i = 0; i < product_small_images.length; i++) {
     const small_image = product_small_images[i];
     small_image.addEventListener('click', (e) => {
@@ -14,7 +14,11 @@ for (let i = 0; i < product_small_images.length; i++) {
         });
     });
 }
-vote_button.addEventListener('click', () => {
-    vote_button.classList.toggle('vote-button-clicked');
-    vote_button.classList.toggle('vote-clicked-animation');
-});
+function validateComment() {
+    const input = input_comment.value;
+    if(input.length > 0) {
+        comment_button.disabled = false;
+    } else {
+        comment_button.disabled = true;
+    }
+}

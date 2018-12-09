@@ -15,10 +15,10 @@
     </div>
     <div class="login-section">
         <form class="user-form" action="/login" method="POST">
-            <input class="input" required autocomplete="off" type="text" placeholder="Username" name="username" />
             <%if(!loginPassed) {%>
-                <p style="color: red;padding-bottom: 20px;">Username or Password is not correct!!!</p>
+                <p style="color: #f9ca06 ;padding-bottom: 20px; font-weight: bold">Username or Password is not correct!</p>
             <% }%>
+            <input class="input" required autocomplete="off" type="text" placeholder="Username" name="username" />
             <input class="input" required type="password" placeholder="Password" name="password" />
             
             <input type="submit" class="form-button" value="login">

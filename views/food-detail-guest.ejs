@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Niramit:300i,400,400i,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i,800,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -16,17 +17,16 @@
         <div class="white-bg"></div>
         <div class="product-images">
             <div class="product-images-wrapper">
-                <a href="/main" class="fas fa-arrow-left back-button"></a>
+                <a href="/guest" class="fas fa-arrow-left back-button"></a>
                 <div class="big-image-wrapper">
                     <img class="big-image" src="/food-img/<%= food[0].imageUrl%>" alt="#">
                 </div>
                 <div class="small-images">
-                    <% food.forEach(img =>{ %> 
+                    <% image.forEach(img =>{ %> 
                         <div class="small-image-wrapper">
                             <img src="/food-img/<%= img.imageUrl%>" alt="#">
                         </div>
                     <% })%>
-                    
                 </div>
             </div>
         </div>
@@ -34,43 +34,34 @@
             <div class="product-detail-wrapper">
                 <div class="product-info">
                     <div class="product-info-wrapper">
-                        <img src="/avatar/crop/<%= food[0].avataUrl%>" class="author-avatar">
+                        <img src="images/groupava.jpg" class="author-avatar">
                         <div class="author-name"><%= food[0].username%></div>
                         <div class="product-date"><%= date%></div>
-                        <div class="follow-button">follow</div>
                     </div>
                 </div>
                 <div class="product-item">
                     <div class="product-name"><%= food[0].title%></div>
                     <div class="product-content"><%= food[0].content%></div>
                     <div class="product-social">
-                        <a href="/food-like?foodId=<%= food[0].foodId%>" class="fas fa-heart <% if(canLike == false) {%>vote-button-clicked<%}%>">
-                            <span><%= like.length%></span>
+                        <a class="fas fa-heart">
+                            <span><%= food[0].numLike%></span>
                         </a>
                         <i class="fas fa-comment-alt">
-                            <span><%= comment.length%></span>
+                            <span><%= food[0].numComm%></span>
                         </i>
-                    </div>
-                    <div class="product-comment">
-                        <form action="/food-detail" method="POST">
-                            <input onkeyup="validateComment();" type="text" class="comment" placeholder="Comment..." name="comment">
-                            <input type="hidden" value="<%= food[0].foodId%>" name="foodId">
-                            <button type="submit" class="comment-submit" disabled><i class="fas fa-paper-plane"></i></button>
-                        </form>
                     </div>
                 </div>
                 <div class="user-comments">
                     <div class="comments-wrapper">
                         <% comment.forEach(cm => { %> 
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="/avatar/crop/<%= cm.avataUrl%>" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name"><%= cm.username%></div>
+                            <div class="a-comment">
+                                <div class="user-info-wrapper">
+                                    <img src="/avatar/crop/<%= cm.avataUrl%>" alt="#" class="user-comment-avatar">
+                                    <div class="user-comment-name"><%= cm.username%></div>
+                                </div>
+                                <div class="user-comment-text"><%= cm.content%></div>
                             </div>
-                            <div class="user-comment-text"><%= cm.content%></div>
-                        </div>
-                        <% })%>
-                        
+                            <% })%>
                     </div>
                 </div>
             </div>

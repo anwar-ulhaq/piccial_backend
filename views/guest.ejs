@@ -20,74 +20,76 @@
     <section class="menu-bar">
         <img src="images/logo.png" alt="" class="menu-logo">
         <div class="search-box">
-            <div class="search-box-wrapper">
-                <input type="text" placeholder="Search something...">
+            <div class="search-box-wrapper">             
                 <div class="search-button">
-                    <i class="fas fa-search search-click"></i>
-                    <i class="fas fa-search search-trigger"></i>
+                    <form action="/guest-search" method="GET">    
+                        <input type="text" placeholder="Search something..." name="search">
+                        <i class="fas fa-search search-click"></i>
+                        <a type="submit" class="fas fa-search search-trigger"></a>
+                    </form>
                 </div>
                 <i class="fas fa-times close-button"></i>
             </div>
         </div>
         <div class="menu-options">
-            <a href="/">login</a>
-            <a href="/signup">sign up</a>
+            <i class="fas fa-cog drop-down-button"></i>
         </div>
     </section>
+    <div class="options-wrapper">
+        <a href="/" class="user-option">Login</a>
+        <a href="/signup"class="sign-out-option">Sign Up</a>              
+    </div>
     <!-- begin section food of the day -->
     <section class="header-carousel">
         <div class="opacity-bg"></div>
         <div class="carousel-slides">
             <div class="carousel-item active">
                 <div class="carousel-wrapper">
-                    <div class="carousel-image item-1"></div>
+                    <div class="carousel-image item-1" style="background: url('/food-img/<%= foodOfTheDay[0].imageUrl%>'); background-position: center; background-size: cover;"></div>
                     <div class="carousel-content">
                         <div class="carousel-content-wrapper">
                             <div class="carousel-title">food of the day</div>
-                            <div class="carousel-subtitle">tonkatsu ramen</div>
+                            <div class="carousel-subtitle"><%= foodOfTheDay[0].title%></div>
                             <div class="social">
-                                <i class="far fa-heart carousel"><span class="heart-point">124</span></i>
-                                <i class="far fa-comment-alt"><span>89</span></i>
+                                <i class="far fa-heart carousel"><span class="heart-point"><%= foodOfTheDay[0].numLike%></span></i>
+                                <i class="far fa-comment-alt"><span><%= foodOfTheDay[0].numComm%></span></i>
                             </div>
-                            <div class="carousel-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Ducimus possimus vero voluptates qui voluptas libero vero consectetur adipisicing ...</div>
-                            <div class="carousel-button">Check it out</div>
+                            <div class="carousel-info"><%= foodOfTheDay[0].content%></div>
+                            <a class="carousel-button" href="/food-detail-guest?foodId=<%= foodOfTheDay[0].foodId%>">Check it out</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="carousel-wrapper">
-                    <div class="carousel-image item-2"></div>
+                    <div class="carousel-image item-1" style="background: url('/food-img/<%= foodOfTheDay[1].imageUrl%>'); background-position: center; background-size: cover;"></div>
                     <div class="carousel-content">
                         <div class="carousel-content-wrapper">
                             <div class="carousel-title">food of the day</div>
-                            <div class="carousel-subtitle">chicken tinga tacos</div>
+                            <div class="carousel-subtitle"><%= foodOfTheDay[1].title%></div>
                             <div class="social">
-                                <i class="far fa-heart carousel"><span class="heart-point">112</span></i>
-                                <i class="far fa-comment-alt"><span>68</span></i>
+                                <i class="far fa-heart carousel"><span class="heart-point"><%= foodOfTheDay[1].numLike%></span></i>
+                                <i class="far fa-comment-alt"><span><%= foodOfTheDay[1].numComm%></span></i>
                             </div>
-                            <div class="carousel-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Ducimus possimus vero voluptates qui voluptas libero vero consectetur adipisicing ...</div>
-                            <div class="carousel-button">Check it out</div>
+                            <div class="carousel-info"><%= foodOfTheDay[1].content%></div>
+                            <a class="carousel-button" href="/food-detail-guest?foodId=<%= foodOfTheDay[1].foodId%>">Check it out</a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="carousel-item">
                 <div class="carousel-wrapper">
-                    <div class="carousel-image item-3"></div>
+                    <div class="carousel-image item-1" style="background: url('/food-img/<%= foodOfTheDay[2].imageUrl%>'); background-position: center; background-size: cover;"></div>
                     <div class="carousel-content">
                         <div class="carousel-content-wrapper">
                             <div class="carousel-title">food of the day</div>
-                            <div class="carousel-subtitle">magic garlicky tofu</div>
+                            <div class="carousel-subtitle"><%= foodOfTheDay[2].title%></div>
                             <div class="social">
-                                <i class="far fa-heart carousel"><span class="heart-point">106</span></i>
-                                <i class="far fa-comment-alt"><span>73</span></i>
+                                <i class="far fa-heart carousel"><span class="heart-point"><%= foodOfTheDay[2].numLike%></span></i>
+                                <i class="far fa-comment-alt"><span><%= foodOfTheDay[2].numComm%></span></i>
                             </div>
-                            <div class="carousel-info">Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                Ducimus possimus vero voluptates qui voluptas libero vero consectetur adipisicing ...</div>
-                            <div class="carousel-button">Check it out</div>
+                            <div class="carousel-info"><%= foodOfTheDay[2].content%></div>
+                            <a class="carousel-button" href="/food-detail-guest?foodId=<%= foodOfTheDay[2].foodId%>">Check it out</a>
                         </div>
                     </div>
                 </div>
@@ -104,218 +106,22 @@
     </section>
     <!-- begin card item -->
     <section class="list-items">
-        <div class="card-item">
-            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/Tonkatsu-Ramen-Tall2.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/IMG_0745-740x1110.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/IMG_0745-740x1110.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/Tonkatsu-Ramen-Tall2.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/Chicken-Tinga-Tacos-6.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/Tonkatsu-Ramen-Tall2.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-        <div class="card-item">
-            <img src="images/IMG_0745-740x1110.jpg" class="card-image" />
-            <div class="card-gradient-bg"></div>
-            <div class="card-title">
-                <div class="card-food">chicken tinga tacos</div>
-                <div class="card-author">karina alfimova</div>
-            </div>
-            <div class="card-social-icons">
-                <i class="far fa-heart"><span>112</span></i>
-                <i class="far fa-comment-alt"><span>25</span></i>
-            </div>
-        </div>
-    </section>
-    <!-- begin section product -->
-    <div class="dark-bg"></div>
-    <i class="fas fa-times product-close-button"></i>
-    <section class="product">
-        <div class="product-images">
-            <div class="product-images-wrapper">
-                <div class="big-image-wrapper">
-                    <img class="big-image" src="/images/Tonkatsu-Ramen-Tall2.jpg" alt="#">
-                </div>
-                <div class="small-images">
-                    <div class="small-image-wrapper">
-                        <img src="images/Tonkatsu-Ramen-Tall2.jpg" alt="#">
-                    </div>
-                    <div class="small-image-wrapper">
-                        <img src="images/Chicken-Tinga-Tacos-6.jpg" alt="#">
-                    </div>
-                    <div class="small-image-wrapper">
-                        <img src="images/background.jpg" alt="#">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="product-detail">
-            <div class="product-detail-wrapper">
-                <div class="product-info">
-                    <div class="product-info-wrapper">
-                        <img src="images/groupava.jpg" class="author-avatar">
-                        <div class="author-name">Piccial team</div>
-                        <div class="product-date">November 21 2018</div>
-                        <div class="follow-button">follow</div>
-                    </div>
-                </div>
-                <div class="product-item">
-                    <div class="product-name">Tonkatsu Ramen</div>
-                    <div class="product-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem non
-                        qui modi doloribus necessitatibus voluptas porro. Voluptate.</div>
-                    <div class="product-social">
-                        <i class="far fa-heart">
-                            <span>112</span>
-                        </i>
-                        <i class="far fa-comment-alt">
-                            <span>25</span>
-                        </i>
-                    </div>
-                    <div class="product-comment"></div>
-                </div>
-                <div class="user-comments">
-                    <div class="comments-wrapper">
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque suscipit minus aperiam adipisci deleniti, eveniet incidunt
-                                obcaecati.</div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque </div>
-                        </div>
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="images/ava.jpg" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name">Phat Doan</div>
-                            </div>
-                            <div class="user-comment-text">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Dolore quidem cumque neque </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="upload-post product">
-        <form action="  " class="upload-post-form">
-            <div class="upload-images">
-                <div class="images-container">
-                    <div class="img-prev-wrapper">
-                        <div class="images-preview"></div>
-                    </div>
-                </div>
-                <input required multiple accept="image/*" type="file" name="images" class="choose-img" onchange="preview_images(this)">               
-            </div>
-            <div class="post-caption">
-                <div class="post-caption-container">
-                    <input required class="p-food-name" type="text" placeholder="How do you call this?">
-                    <textarea class="p-food-caption" placeholder="Say something about it..." name="message" form="upload-post-form" rows="10" cols="30"></textarea>
-                    <button type="submit" class="p-submit-button">post</button>
-                </div>
-            </div>
-        </form>
+        <% foods.forEach(food => { %> 
+       <div class="card-item">
+           <img src="/food-img/<%= food.imageUrl%>" class="card-image" />
+           <div class="card-gradient-bg"></div>
+           <div class="card-title">
+               <a href="/food-detail-guest?foodId=<%= food.foodId%>" class="card-food"><%= food.title%></a>
+               <a href="/food-detail-guest?foodId=<%= food.foodId%>" class="card-author"><%= food.username%></a>
+               <input type="hidden" value="<%= food.foodId%>" id="foodId">
+           </div>
+           <div class="card-social-icons">
+               <i class="far fa-heart"><span><%= food.numLike%></span></i>
+               <i class="far fa-comment-alt"><span><%= food.numComm%></span></i>
+           </div>
+       </div>
+       <% })%>     
+   </section>
         <script src="scripts/guest.js"></script>
 </body>
 

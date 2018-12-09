@@ -151,11 +151,12 @@ for (let i = 0; i < product_small_images.length; i++) {
 function preview_images() {
     const images_preview = document.querySelector(".images-preview");
     if(this.files) {
-        if(this.files.length <= 4) {
+        if(this.files.length <= 3) {
+            choose_img.style.display = "none";
             [].forEach.call(this.files, readAndPreview);
         } else {
             choose_img.value = "";
-            alert('Limited to 4 images only');
+            alert('Limited to 3 images only');
         }
     }
     readAndPreview = (file) => {

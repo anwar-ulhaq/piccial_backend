@@ -10,13 +10,13 @@
     <title>Administrator</title>
 </head>
 <body class="admin-page">
-    
+    <div class="dark-admin-bg"></div>
     <div class="top">
-        <a href="/admin" style="color:antiquewhite;">Go to Main</a>
+        <a href="/admin" class="fas fa-arrow-left back-button"></a>
         <h1>user management</h1>
-        <form action="" class="admin-search-bar">
-            <input type="text" placeholder="Search by name, id...">
-            <i class="fas fa-search admin-search-button"></i>
+        <form action="/user-manager-search" method="GET" class="admin-search-bar">
+                <input type="text" placeholder="Search by name, id..." name="search">              
+                <button class="fas fa-search admin-search-button" type="submit"></button>
         </form>
     </div>
     <section>
@@ -26,7 +26,7 @@
               <tr>
                 <th>ID</th>
                 <th>Username</th>
-                <th>Last logon time</th>
+                <th>Last login time</th>
                 <th>Permission</th>
                 <th>Action</th>
               </tr>
@@ -40,7 +40,7 @@
                 <tr>
                     <td><%= users.userId%></td>
                     <td><%= users.username%></td>
-                    <td>19:45 - 28/11/2018</td>
+                    <td><%= users.timeLogin%></td>
                     
                     <td>
                         <form action="/user-update-permission" method="POST" style="display:inline-block">
@@ -50,14 +50,14 @@
                             </select>
                             <input type="hidden" name="userId" value="<%= users.userId%>">
                             
-                            <button class="delete-badge badge">update</button>
+                            <button class="delete-badge update-badge">Update</button>
                         </form>
                     </td>
                     <td>                          
                         <form action="/user-delete" method="POST" style="display:inline-block">
                             <input type="hidden" name="userId" value="<%= users.userId%>">
                             
-                            <button class="delete-badge badge">delete</button>
+                            <button class="delete-badge badge">Delete</button>
                         </form>
                         
                     </td>

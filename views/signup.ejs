@@ -16,13 +16,13 @@
         <img src="images/logo.png" class="logo logo-sign-up" alt="logo">
     </div>
     <form action="/signup" method="POST" class="sign-up user-form">
-        <input id="username" class="input" autocomplete="off" required type="text" placeholder="Username" name="username" />
+        <input id="username" class="input" autocomplete="off" required type="text" placeholder="Username" name="username" pattern="[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]" />
         <% if(userExisted == true) { %>
-        <p style="color: red;padding-bottom: 20px;">Username
-            <%= username%> is exist. Please enter the another username</p>
+        <p style="color: #f9ca06 ;padding-bottom: 20px;">Username
+            <%= username%> exists. Please enter the another username</p>
         <% } %>
         <input id="password" class="input" autocomplete="off" required type="password" placeholder="Password" value=""
-            name="password" />
+            name="password">
         <input id="email" class="input" autocomplete="off" required type="email" placeholder="Email" name="email" />
         
         <input class="form-button" type="submit" value="sign up">

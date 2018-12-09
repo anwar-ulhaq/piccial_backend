@@ -5,7 +5,7 @@ module.exports = class Users {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.avatarUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6rtrg5owATY350Zo03V-LRi206_FA0BMJsBsMhodT4UjHO6hI';
+        this.avatarUrl = 'user.png';
         this.timeUpdate = new Date();
         this.timeDelete = null;
         this.permission = 2;
@@ -25,14 +25,16 @@ module.exports = class Users {
 
     static findById(userId){
         return db.execute('SELECT userId, username,email,password, permission FROM users WHERE users.userId = ?', [userId]);
+        //return db.execute('SELECT * FROM userLogin WHERE users.userId = ?', [userId]);
     }
 
     static login(username) {
-        return db.execute('SELECT userId, username,password,permission FROM users WHERE timeDELETE = "NULL" AND users.username = ?',[username]);
+        return db.execute('SELECT userId, username,password,permission FROM users WHERE timeDelete IS NULL AND users.username = ?',[username]);
     }
 
     static getAllUsers(){
-        return db.execute('SELECT * FROM users WHERE timeDelete IS NULL ');
+        //return db.execute('SELECT * FROM users WHERE timeDelete IS NULL ');
+        return db.execute('SELECT * FROM userLogin WHERE timeDelete IS NULL ');
     }
 
     static loginManager(userId) { //add userId and timeLogin in to table login
@@ -50,6 +52,12 @@ module.exports = class Users {
         return db.execute('UPDATE users SET permission = ? WHERE userId = ?',[permission,userId]);
     }
 
+    static updatePassword(userId, password){
+        return db.execute(
+            'UPDATE users SET password = ? WHERE userId = ?',[password,userId]
+        )
+    }
+
     static updateLogout(userId){
         const timeLogout = new Date();
         return db.execute('UPDATE login SET timeLogout = ? WHERE userId = ? AND timeLogin IS NOT NULL',[timeLogout,userId]);
@@ -65,4 +73,14 @@ module.exports = class Users {
         const timeLogin = new Date();
         return db.execute('INSERT INTO guest (timeLogin) VALUES (?)',[timeLogin]);
     }
-};
+
+    //search 
+
+    static search(searchText){
+        let s = `%${searchText}%`
+        return db.execute(
+            //'SELECT * FROM users WHERE (userId LIKE ? OR username LIKE ?) AND timeDelete IS NULL',[s,s]
+            'SELECT * FROM userLogin WHERE (userId LIKE ? OR username LIKE ?) AND timeDelete IS NULL',[s,s]
+        )
+    }
+}

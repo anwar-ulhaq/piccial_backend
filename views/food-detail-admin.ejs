@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Niramit:300i,400,400i,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:500,500i,700,700i,800,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
@@ -16,7 +17,7 @@
         <div class="white-bg"></div>
         <div class="product-images">
             <div class="product-images-wrapper">
-                <a href="/main" class="fas fa-arrow-left back-button"></a>
+                <a href="/admin" class="fas fa-arrow-left back-button"></a>
                 <div class="big-image-wrapper">
                     <img class="big-image" src="/food-img/<%= food[0].imageUrl%>" alt="#">
                 </div>
@@ -26,7 +27,6 @@
                             <img src="/food-img/<%= img.imageUrl%>" alt="#">
                         </div>
                     <% })%>
-                    
                 </div>
             </div>
         </div>
@@ -37,22 +37,22 @@
                         <img src="/avatar/crop/<%= food[0].avataUrl%>" class="author-avatar">
                         <div class="author-name"><%= food[0].username%></div>
                         <div class="product-date"><%= date%></div>
-                        <div class="follow-button">follow</div>
+                        <a class="delete-post-button">Delete</a>
                     </div>
                 </div>
                 <div class="product-item">
                     <div class="product-name"><%= food[0].title%></div>
                     <div class="product-content"><%= food[0].content%></div>
                     <div class="product-social">
-                        <a href="/food-like?foodId=<%= food[0].foodId%>" class="fas fa-heart <% if(canLike == false) {%>vote-button-clicked<%}%>">
-                            <span><%= like.length%></span>
-                        </a>
-                        <i class="fas fa-comment-alt">
-                            <span><%= comment.length%></span>
-                        </i>
+                            <a href="/food-like-admin?foodId=<%= food[0].foodId%>" class="fas fa-heart <% if(canLike == false) { %> vote-button-clicked <% } else {%><% }%>">
+                                <span><%= like.length%></span>
+                            </a>
+                            <i class="fas fa-comment-alt">
+                                <span><%= comment.length%></span>
+                            </i>
                     </div>
                     <div class="product-comment">
-                        <form action="/food-detail" method="POST">
+                        <form action="/food-detail-admin" method="POST">
                             <input onkeyup="validateComment();" type="text" class="comment" placeholder="Comment..." name="comment">
                             <input type="hidden" value="<%= food[0].foodId%>" name="foodId">
                             <button type="submit" class="comment-submit" disabled><i class="fas fa-paper-plane"></i></button>
@@ -61,21 +61,32 @@
                 </div>
                 <div class="user-comments">
                     <div class="comments-wrapper">
+                            
                         <% comment.forEach(cm => { %> 
-                        <div class="a-comment">
-                            <div class="user-info-wrapper">
-                                <img src="/avatar/crop/<%= cm.avataUrl%>" alt="#" class="user-comment-avatar">
-                                <div class="user-comment-name"><%= cm.username%></div>
+                            
+                            <div class="a-comment">
+                                <div class="user-info-wrapper">
+                                    <img src="/avatar/crop/<%= cm.avataUrl%>" alt="#" class="user-comment-avatar">
+                                    <a href="/delete-comment-admin?foodId=<%= food[0].foodId%>&commentId=<%= cm.commentId%>" class="fas fa-times comment-delete-button"></a>
+                                    <div class="user-comment-name"><%= cm.username%></div>
+                                </div>
+                                <div class="user-comment-text"><%= cm.content%></div>
                             </div>
-                            <div class="user-comment-text"><%= cm.content%></div>
-                        </div>
                         <% })%>
-                        
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <div class="modal-bg"></div>
+    <div class="modal-box">
+        <div class="modal-box-wrapper">
+            <div class="modal-question">Do you want to delete this post?</div>
+            <a href="/delete-food-admin?foodId=<%= food[0].foodId%>" class="modal-y">Yes</a>
+            <a href="" class="modal-n">No</a>
+        </div>
+    </div>
     <script src="scripts/product.js"></script>
+    <script src="scripts/admin.js"></script>
 </body>
 </html>

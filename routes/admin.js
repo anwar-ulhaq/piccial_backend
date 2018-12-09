@@ -11,4 +11,18 @@ router.post('/user-update-permission', isAuth, adminController.postUserUpdatePer
 
 router.get('/admin', isAuth, adminController.getAdmin);
 
+router.get('/food-detail-admin', isAuth, adminController.getFoodDetailAdmin);
+
+router.post('/food-detail-admin', isAuth, adminController.postComment);
+
+router.get('/food-like-admin', isAuth, adminController.getLike);
+
+router.get('/delete-comment-admin', isAuth, adminController.getDeleteComment);
+
+router.get('/delete-food-admin',isAuth, adminController.getDeleteFood);
+
+router.get('/user-manager-search', isAuth, adminController.getUserManagerSearch);
+
+router.get('/admin-search',isAuth, adminController.getAdminSearch);
+
 module.exports = router;
