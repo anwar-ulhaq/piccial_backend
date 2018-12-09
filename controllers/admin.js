@@ -1,18 +1,15 @@
 const User = require("../models/users");
 const Food = require("../models/foods");
-const dateFormat = require("./dateFormat");
 
 exports.getUsersManage = (req, res, next) => {
   if (req.session.user.permission === 1) {
     User.getAllUsers()
       .then(data => {
-        //const date = dateFormat.dateFormat(data[0][0].timeLogin);
         res.render("user-manager", {
           pageTitle: "User Manager",
           path: "/user-manager",
           userExisted: false,
-          data: data[0],
-          //date: date
+          data: data[0]
         });
       })
       .catch(err => {
@@ -37,7 +34,7 @@ exports.postUserDelete = (req, res, next) => {
 exports.postUserUpdatePermission = (req, res, next) => {
   const userId = req.body.userId;
   const permission = req.body.permission;
-  //console.log('per', permission, 'userid',userId);
+
   User.updatePermission(userId, permission)
     .then(result => {
       res.redirect("/user-manager");
@@ -73,28 +70,29 @@ exports.getAdmin = (req, res, next) => {
 exports.getAdminSearch = (req, res, next) => {
   const search = req.query.search;
   //console.log(search);
-  Food.foodOfTheDay().then(result =>{
-    //console.log(result[0]);
-    const foodOfTheDay = result[0];
-    Food.search(search)
-    .then(result =>{
-      const foods = result[0];
-      Food.getLikeSum(foods);
-      res.render("admin", {
-        pageTitle: "Piccial - Food Reviews Page",
-        path: "/admin",
-        user: req.session.user,
-        foods: foods,
-        foodOfTheDay : foodOfTheDay
-      });
-    }) 
+  Food.foodOfTheDay()
+    .then(result => {
+      //console.log(result[0]);
+      const foodOfTheDay = result[0];
+      Food.search(search)
+        .then(result => {
+          const foods = result[0];
+          Food.getLikeSum(foods);
+          res.render("admin", {
+            pageTitle: "Piccial - Food Reviews Page",
+            path: "/admin",
+            user: req.session.user,
+            foods: foods,
+            foodOfTheDay: foodOfTheDay
+          });
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
     .catch(err => {
-      console.log(err); 
+      console.log(err);
     });
-  }).catch(err =>{
-    console.log(err);
-  });
-  
 };
 
 exports.getFoodDetailAdmin = (req, res, next) => {
@@ -104,8 +102,6 @@ exports.getFoodDetailAdmin = (req, res, next) => {
     .then(result => {
       //console.log(result[0]);
       const food = result[0];
-      //console.log('kkkkk',food)
-      const date = dateFormat.dateFormat(food[0].timeUpdate.toString());
       Food.getLikeSum(foodId)
         .then(result => {
           const like = result[0];
@@ -129,14 +125,11 @@ exports.getFoodDetailAdmin = (req, res, next) => {
           //console.log(canLike);
           Food.getComments(foodId)
             .then(comments => {
-              //console.log(comments[0])
               const comment = comments[0];
-              //console.log(like.length);
 
               Food.updateNumComm(foodId, comment.length)
                 .then()
                 .catch();
-              const date = dateFormat.dateFormat(food[0].timeUpdate);
               res.render("food-detail-admin", {
                 pageTitle: "Food detail",
                 path: "/food-detail-admin",
@@ -144,7 +137,6 @@ exports.getFoodDetailAdmin = (req, res, next) => {
                 user: req.session.user,
                 food: food,
                 like: like,
-                date: date,
                 canLike: canLike
               });
             })
@@ -253,18 +245,12 @@ exports.getUserManagerSearch = (req, res, next) => {
   const search = req.query.search;
   //console.log(search);
   User.search(search)
-    .then(result =>{
-      //console.log(result[0]);
-     
-       //const date = dateFormat.dateFormat(result[0][0].timeLogin);
-      
-      
+    .then(result => {
       res.render("user-manager", {
         pageTitle: "User Manager",
         path: "/user-manager",
         userExisted: false,
-        data: result[0],
-        //date: date
+        data: result[0]
       });
     })
     .catch(err => {

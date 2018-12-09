@@ -21,6 +21,8 @@ const foodRoutes                = require('./routes/food');
 
 const app           = express();
 
+app.locals.formatDate           = require('dateformat');
+
 const store         = new MySQLStore({
   host                          : process.env.DB_HOST,
   user                          : process.env.DB_USER,

@@ -1,25 +1,33 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const foodController = require('../controllers/food');
-const isAuth = require('../controllers/is-auth');
-
-const multer = require('multer');
+const foodController = require("../controllers/food");
+const isAuth = require("../controllers/is-auth");
+const sharp = require("sharp");
+const multer = require("multer");
 
 const foodStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './public/food-img');
+    cb(null, "./public/food-img");
   },
   filename: (req, file, cb) => {
-    //cb(null, new Date().toISOString() + '-' + file.originalname);
-    cb(null, req.session.user.userId + '-' + req.session.user.username + '-' + new Date().toISOString() + '-' + file.originalname);
+    cb(
+        null,
+        req.session.user.userId +
+        "-" +
+        req.session.user.username +
+        "-" +
+        new Date().toISOString() +
+        "-" +
+        file.originalname
+    );
   }
 });
 
 const foodFilter = (req, file, cb) => {
   if (
-    file.mimetype === 'image/png' ||
-    file.mimetype === 'image/jpg' ||
-    file.mimetype === 'image/jpeg'
+      file.mimetype === "image/png" ||
+      file.mimetype === "image/jpg" ||
+      file.mimetype === "image/jpeg"
   ) {
     cb(null, true);
   } else {
@@ -29,14 +37,45 @@ const foodFilter = (req, file, cb) => {
 
 //multer
 
-const uploadFoodImg = multer({ storage: foodStorage, fileFilter: foodFilter }).array('img-foods')
+const uploadFoodImg = multer({
+  storage: foodStorage,
+  fileFilter: foodFilter
+}).any();
+//}).array("img-foods");
 
-router.post('/add-food', isAuth, uploadFoodImg,foodController.postAddFood);
+const resizeImg = (req, res, next) => {
 
-router.get('/food-detail', isAuth, foodController.getFoodDetail);
+  let query = req.body;
+  if (!req.body && !req.files) {
+    res.json({ success: false });
+  } else {
+    console.log(req.files);
 
-router.post('/food-detail', isAuth, foodController.postComment);
+    for (let i = 0; i < req.files.length; i++) {
+      sharp(req.files[i].path)
+      .resize(700)
+      .toFile(
+          "./public/food-img/" + "resized-" + req.files[i].filename,
+          function(err) {
+            if (err) {
+              console.error("sharp>>>", err);
+            }
+            //console.log("ok okoko");
+          }
+      );
+    }
+  }
+  next();
+};
 
-router.get('/food-like', isAuth, foodController.getLike);
+router.post('/add-food',isAuth,uploadFoodImg,resizeImg);
+
+router.post("/add-food",isAuth,foodController.postAddFood);
+
+router.get("/food-detail", isAuth, foodController.getFoodDetail);
+
+router.post("/food-detail", isAuth, foodController.postComment);
+
+router.get("/food-like", isAuth, foodController.getLike);
 
 module.exports = router;

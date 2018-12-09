@@ -29,7 +29,7 @@ module.exports = class Users {
     }
 
     static login(username) {
-        return db.execute('SELECT userId, username,password,permission FROM users WHERE timeDelete IS NULL AND users.username = ?',[username]);
+        return db.execute('SELECT * FROM users WHERE timeDelete IS NULL AND users.username = ?',[username]);
     }
 
     static getAllUsers(){

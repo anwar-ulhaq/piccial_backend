@@ -120,7 +120,7 @@
          <% foods.forEach(food => { %> 
         <div class="card-item">
             <img src="/food-img/<%= food.imageUrl%>" class="card-image" />
-            <div class="card-gradient-bg"></div>
+            <a href="/food-detail?foodId=<%= food.foodId%>" class="card-gradient-bg"></a>
             <div class="card-title">
                 <a href="/food-detail?foodId=<%= food.foodId%>" class="card-food"><%= food.title%></a>
                 <a href="/food-detail?foodId=<%= food.foodId%>" class="card-author"><%= food.username%></a>

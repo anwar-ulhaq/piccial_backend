@@ -44,7 +44,14 @@
                     <% } %>
                     <div class="user-change-password-wrapper">
                         <input type="password" name="password" placeholder="Current password" class="current-password">
-                        <input type="password" name="newpassword" placeholder="New password" class="new-password">
+                        <input
+                                type="password"
+                                name="newpassword"
+                                placeholder="New password"
+                                pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                title="Password must be of 8 or more characters (combination of upper-lower case character(s), one or more digits)"
+                                class="new-password"
+                        >
                         <input type="password" name="confpassword" placeholder="Confirm password" class="Confirm-password">
                         <button type="submit" class="user-info-submit">Change</button>
                     </div>

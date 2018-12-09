@@ -16,15 +16,24 @@
         <img src="images/logo.png" class="logo logo-sign-up" alt="logo">
     </div>
     <form action="/signup" method="POST" class="sign-up user-form">
-        <input id="username" class="input" autocomplete="off" required type="text" placeholder="Username" name="username" pattern="[a-zA-Z0-9](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]" />
         <% if(userExisted == true) { %>
-        <p style="color: #f9ca06 ;padding-bottom: 20px;">Username
-            <%= username%> exists. Please enter the another username</p>
+            <p style="color: #f9ca06 ;padding-bottom: 20px; font-weight: bold;">Username
+                <%= username%> exists.  Please try again!</p>
         <% } %>
-        <input id="password" class="input" autocomplete="off" required type="password" placeholder="Password" value=""
-            name="password">
+        <input id="username" class="input" autocomplete="off" required type="text" placeholder="Username" name="username" pattern="[a-zA-Z0-9]((?!(\.|))|\.(?!(_|\.))|[a-zA-Z0-9]){6,18}[a-zA-Z0-9]" title="Username must be in 8 or more characters">
+
+        <input id="password"
+               class="input"
+               autocomplete="off"
+               required type="password"
+               placeholder="Password"
+               value=""
+               name="password"
+               pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               title="Password must be of 8 or more characters (combination of upper-lower case character(s), one or more digits)"
+        >
         <input id="email" class="input" autocomplete="off" required type="email" placeholder="Email" name="email" />
-        
+
         <input class="form-button" type="submit" value="sign up">
         <div class="or-text">OR</div>
         <a class="sign-up" href="/">Already have an account?</a>

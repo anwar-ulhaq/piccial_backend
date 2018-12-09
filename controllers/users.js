@@ -46,14 +46,14 @@ exports.postLogin = (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
-  User.checkUserExist(username)
+  User.login(username)
     .then(rows => {
       //console.log('aaaa',rows[0][0].username);
       console.log(rows[0]);
       if (rows[0].length > 0) {
         //username is correct, check password
         // console.log(password)
-        // console.log(rows[0][0].password);
+        console.log('vvvvddd',rows[0][0]);
 
         bcrypt.compare(password, rows[0][0].password).then(result => {
           //console.log(result);

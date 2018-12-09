@@ -22,7 +22,7 @@ router.get('/delete-comment-admin', isAuth, adminController.getDeleteComment);
 router.get('/delete-food-admin',isAuth, adminController.getDeleteFood);
 
 router.get('/user-manager-search', isAuth, adminController.getUserManagerSearch);
-
+//user-manager-search
 router.get('/admin-search',isAuth, adminController.getAdminSearch);
 
 module.exports = router;

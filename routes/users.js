@@ -1,11 +1,8 @@
 const express = require('express');
 const sharp = require('sharp');
-
 const router = express.Router();
 const userController = require('../controllers/users');
 const isAuth = require('../controllers/is-auth');
-const gm = require('gm');
-
 const multer = require('multer');
 
 const avatarStorage = multer.diskStorage({
@@ -13,9 +10,6 @@ const avatarStorage = multer.diskStorage({
     cb(null, './public/avatar');
   },
   filename: (req, file, cb) => {
-    console.log('printing file : '+ JSON.stringify(file));
-    //Result
-    //printing file : {"fieldname":"avatar","originalname":"Safeway_Signature_Cafe_corn_chowder.jpg","encoding":"7bit","mimetype":"image/jpeg"}
     cb(null, new Date().toISOString() + '-' + file.originalname);
     //cb(null, req.session.user.userId + '-' + req.session.user.username + '-' + new Date().toISOString() + '-' + file.originalname);
   }
