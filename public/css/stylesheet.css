@@ -469,7 +469,7 @@ section.menu-bar {
     font-size: 1.5rem;
     font-style: italic;
     margin-top: 1.5vh;
-    text-transform: capitalize;
+    text-transform: lowercase;
     color: #dbb003;
 }
 .carousel-button {
@@ -501,11 +501,10 @@ section.menu-bar {
     margin-top: 4vh;
     width: 100%;
     line-height: 1.8;
+    height: 18vh;
     color: #dddddd;
+    text-overflow: ellipsis;
     overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
 }
 .fa-heart.carousel {
     display: inline;
@@ -588,6 +587,7 @@ section.list-items {
 .card-title a {
     color: #dddddd;
     text-decoration: none;
+    text-transform: lowercase;
     display: block;
 }
 .card-author {
@@ -816,6 +816,7 @@ img.big-image {
 }
 .product-name {
     font-size: 1.2rem;
+    text-transform: lowercase;
     font-weight: bold;
     margin-top: 1vh;
 }
@@ -1689,6 +1690,12 @@ select.permission {
     section.product {
         width: 95%;
         height: 90%;
+    }
+    .card-item {
+        min-height: 27vh;
+    }
+    .card-title .card-food {
+        text-transform: lowercase;
     }
     section.product {
         grid-template-columns: 1fr;
