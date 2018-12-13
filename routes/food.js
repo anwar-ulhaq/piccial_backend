@@ -5,6 +5,7 @@ const isAuth = require("../controllers/is-auth");
 const sharp = require("sharp");
 const multer = require("multer");
 
+//Declare folder and image files name when user upload food images
 const foodStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./public/food-img");
@@ -23,6 +24,7 @@ const foodStorage = multer.diskStorage({
   }
 });
 
+//Only image file: .png, .jpg, .jpeg can upload
 const foodFilter = (req, file, cb) => {
   if (
       file.mimetype === "image/png" ||
@@ -43,8 +45,8 @@ const uploadFoodImg = multer({
 }).any();
 //}).array("img-foods");
 
+//This midleware resize multi images
 const resizeImg = (req, res, next) => {
-
   let query = req.body;
   if (!req.body && !req.files) {
     res.json({ success: false });
@@ -53,14 +55,13 @@ const resizeImg = (req, res, next) => {
 
     for (let i = 0; i < req.files.length; i++) {
       sharp(req.files[i].path)
-      .resize(700)
+      .resize(900)
       .toFile(
           "./public/food-img/" + "resized-" + req.files[i].filename,
           function(err) {
             if (err) {
               console.error("sharp>>>", err);
             }
-            //console.log("ok okoko");
           }
       );
     }

@@ -1,3 +1,6 @@
+/* Author: Phat Doan */
+/* Javascript for admin page, when admin user delete a post, a modal box will show */
+
 const modal_box = document.querySelector('.modal-box');
 const modal_bg = document.querySelector('.modal-bg');
 const modal_n = document.querySelector('.modal-n');

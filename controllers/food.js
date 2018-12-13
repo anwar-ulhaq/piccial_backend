@@ -1,5 +1,6 @@
 const Food = require("../models/foods");
 
+//Index --> login form
 exports.getIndex = (req, res, next) => {
   res.render("index", {
     pageTitle: "Welcome to Piccial",
@@ -7,16 +8,16 @@ exports.getIndex = (req, res, next) => {
   });
 };
 
+//User add food
 exports.postAddFood = (req, res, next) => {
   const title = req.body.title;
   const content = req.body.content;
   const userId = req.session.user.userId;
   const images = req.files;
-
   Food.addFood(title, content, userId)
   .then(results => {
     images.forEach(image => {
-      let img = 'resized-' + image.filename
+      let img = "resized-" + image.filename;
       Food.addImages(results[0].insertId, img, userId)
       .then(result => {})
       .catch(err => {
@@ -30,19 +31,16 @@ exports.postAddFood = (req, res, next) => {
   });
 };
 
+//Show the form Food detail: title, content, images, likes, comments,...
 exports.getFoodDetail = (req, res, next) => {
   const foodId = req.query.foodId;
-  //console.log(foodId);
   Food.foodDetail(foodId)
   .then(result => {
-    //console.log(result[0]);
     const food = result[0];
-
     Food.getLikeSum(foodId)
     .then(result => {
       const like = result[0];
       let canLike = false;
-      //console.log(like);
       Food.updateNumLike(foodId, like.length)
       .then()
       .catch();
@@ -53,12 +51,9 @@ exports.getFoodDetail = (req, res, next) => {
         } else {
           canLike = true;
         }
-        //console.log(canLike);
         Food.getComments(foodId)
         .then(comments => {
-          //console.log(comments[0])
           const comment = comments[0];
-          //console.log(like.length);
           Food.updateNumComm(foodId, comment.length)
           .then()
           .catch();
@@ -79,9 +74,6 @@ exports.getFoodDetail = (req, res, next) => {
       .catch(err => {
         console.log(err);
       });
-
-
-
     })
     .catch(err => {
       console.log(err);
@@ -92,11 +84,11 @@ exports.getFoodDetail = (req, res, next) => {
   });
 };
 
+//Post comment of the food with account is loged in
 exports.postComment = (req, res, next) => {
   const foodId = req.body.foodId;
   const userId = req.session.user.userId;
   const comment = req.body.comment;
-  //console.log(foodId, userId, comment);
   Food.addComments(foodId, userId, comment)
   .then(result => {
     res.redirect(`/food-detail?foodId=${foodId}`);
@@ -106,19 +98,15 @@ exports.postComment = (req, res, next) => {
   });
 };
 
+//Check like: if login user already liked then not like more, if click like again --> dislike
+//Count number of likes and show
 exports.getLike = (req, res, next) => {
   const foodId = req.query.foodId;
   const userId = req.session.user.userId;
   Food.checkLike(foodId, userId)
   .then(result => {
-    //console.log(result[0]);
     let check = result[0];
-
-    //console.log(check.length === 0);
     if (check.length === 0) {
-      // neu chua co like thi
-      //not like yet
-      //console.log('like')
       return Food.addLike(foodId, userId, 1)
       .then(result => {
         res.redirect(`/food-detail?foodId=${foodId}`);
@@ -127,8 +115,6 @@ exports.getLike = (req, res, next) => {
         console.log(err);
       });
     } else {
-      //update dislike
-      //console.log('check like',check[0]);
       if (check[0].isLike == 0) {
         return Food.updateLike(foodId, userId)
         .then(result => {

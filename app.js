@@ -19,7 +19,7 @@ const guestRoutes               = require('./routes/guest');
 //const mediaRoutes               = require('./routes/media');
 const foodRoutes                = require('./routes/food');
 
-const app           = express();
+const app                       = express();
 
 app.locals.formatDate           = require('dateformat');
 
@@ -43,8 +43,6 @@ app.use(
   })
 );
 
-
-
 //set path folder public as root
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -61,16 +59,12 @@ app.use(
   })
 );
 
-//app.use(csrfProtection);
-
 app.use((req, res, next) => {
-  //console.log(req.session.user);
   if (!req.session.user) {
     return next();
   }
   User.findById(req.session.user.userId)
     .then(user => {
-      //console.log(user[0][0]);
       req.user = user[0][0];
       next();
     })
@@ -79,7 +73,6 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  //res.locals.csrfToken = req.csrfToken();
   next();
 });
 
@@ -90,12 +83,10 @@ app.use(adminRoutes);
 app.use(usersRoutes);
 app.use(mainRoutes);
 app.use(guestRoutes);
-//app.use(mediaRoutes);
 app.use(foodRoutes);
 
-//app.listen(3000);
 
-//  Key and Certificate file for use with Https
+//  Key and Certificate file to use with Https
 const sslkey  = fs.readFileSync('/etc/pki/tls/private/ca.key');
 const sslcert = fs.readFileSync('/etc/pki/tls/certs/ca.crt');
 
@@ -116,3 +107,4 @@ https.createServer(options, app).listen(3000 ,() => {
   console.log('HTTPS Listening on localhost:3000');
 });
 
+//app.listen(3000);

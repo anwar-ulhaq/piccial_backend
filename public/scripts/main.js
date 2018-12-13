@@ -1,3 +1,6 @@
+/* Author: Phat Doan */
+/* This javascript is for main.ejs page, and admin.ejs, most of the functions are the same as guest.js file */
+
 const searchBtn_click = document.querySelector('.search-click');
 const searchBtn_trigger = document.querySelector('.search-trigger');
 const searchInput = document.querySelector('.search-box input');
@@ -148,7 +151,7 @@ for (let i = 0; i < product_small_images.length; i++) {
         product_big_image.setAttribute('src', small_image_src);
     });
 }
-function preview_images() {
+function preview_images() { //when user add some images, show it on the page
     const images_preview = document.querySelector(".images-preview");
     if(this.files) {
         if(this.files.length <= 3) {

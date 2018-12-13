@@ -1,11 +1,3 @@
-/*
- 
- @Auther Anwar on 22/11/2018.
- @Project Assignment-05
- 
- */
-
-
 'use strict';
 
 const ExifImage = require('exif').ExifImage;

@@ -1,10 +1,11 @@
-const express = require('express');
-const sharp = require('sharp');
-const router = express.Router();
-const userController = require('../controllers/users');
-const isAuth = require('../controllers/is-auth');
-const multer = require('multer');
+const express         = require('express');
+const sharp           = require('sharp');
+const router          = express.Router();
+const userController  = require('../controllers/users');
+const isAuth          = require('../controllers/is-auth');
+const multer          = require('multer');
 
+// Avatar naming and storage location
 const avatarStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, './public/avatar');
@@ -15,6 +16,7 @@ const avatarStorage = multer.diskStorage({
   }
 });
 
+// Crop avatar images to 400 X 400 from center
 const cropAvatar = (req, res, next) => {
   const avataUrl = req.file.filename;
   const imagePath = './public/avatar/'+req.file.filename;
@@ -40,7 +42,6 @@ const avatarFilter = (req, file, cb) => {
 //multer
 
 const uploadAvatar = multer({ storage: avatarStorage, fileFilter: avatarFilter }).single('avatar');
-
 
 router.get('/signup', userController.getSignup);
 
