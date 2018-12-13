@@ -7,8 +7,8 @@ const MySQLStore                = require("express-mysql-session")(session);
 const User                      = require("./models/users");
 const multer                    = require('multer');
 const csrf                      = require('csurf');
-const fs                        = require('fs');                        //File handler
-const https                     = require('https');                     //
+const fs                        = require('fs');
+const https                     = require('https');
 const http                      = require('http');
 
 //Router
@@ -16,7 +16,6 @@ const usersRoutes               = require("./routes/users");
 const mainRoutes                = require("./routes/main");
 const adminRoutes               = require("./routes/admin");
 const guestRoutes               = require('./routes/guest');
-//const mediaRoutes               = require('./routes/media');
 const foodRoutes                = require('./routes/food');
 
 const app                       = express();
