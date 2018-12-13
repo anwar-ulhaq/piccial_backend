@@ -1,0 +1,96 @@
+CREATE TABLE users(
+	userId INT NOT NULL AUTO_INCREMENT,
+	username VARCHAR(30) NOT NULL,
+	password VARCHAR(30) NOT NULL,
+	fullname VARCHAR(30),
+	email VARCHAR(30) NOT NULL,
+	avataUrl VARCHAR(255) NOT NULL,
+	timeUpdate TIMESTAMP NOT NULL,
+	timeDelete VARCHAR(19),
+	permission TINYINT(10) NOT NULL,
+	PRIMARY KEY (userId)
+);
+
+CREATE TABLE login(
+	userId INT NOT NULL,
+	timeLogin TIMESTAMP NOT NULL,
+	timeLogout VARCHAR(19),
+	FOREIGN KEY (userId) REFERENCES users(userId)
+);
+
+CREATE TABLE guest(
+	timeLogin TIMESTAMP NOT NULL,
+	timeLogout VARCHAR(19)
+);
+
+CREATE TABLE foods(
+	foodId INT NOT NULL AUTO_INCREMENT,
+	userId INT NOT NULL,
+	title VARCHAR(150) NOT NULL,
+	content TEXT NOT NULL,
+	timeUpdate TIMESTAMP NOT NULL,
+	timeDelete VARCHAR(19),
+	PRIMARY KEY (foodId),
+	FOREIGN KEY (userId) REFERENCES users(userId)
+);
+
+CREATE TABLE images(
+	foodId INT NOT NULL,
+	imageUrl VARCHAR(255) NOT NULL,
+        timeUpdate TIMESTAMP,
+        timeDelete VARCHAR(19),
+        userId INT,
+	FOREIGN KEY (foodId) REFERENCES foods(foodId)
+);
+
+CREATE TABLE videos(
+	foodId INT NOT NULL,
+	videoUrl VARCHAR(255) NOT NULL,
+        timeUpdate TIMESTAMP,
+        timeDelete VARCHAR(19),
+        userId INT,
+	FOREIGN KEY (foodId) REFERENCES foods(foodId)
+);
+
+CREATE TABLE likes(
+	foodId INT NOT NULL,
+	userId INT NOT NULL,
+	isLike BIT NOT NULL, -- value 1 is like, value 0 is not like
+	timeUpdate TIMESTAMP NOT NULL,
+	FOREIGN KEY (foodId) REFERENCES foods(foodId),
+	FOREIGN KEY (userId) REFERENCES users(userId)
+);
+
+CREATE TABLE comments(
+        commentId INT NOT NULL AUTO_INCREMENT,
+	foodId INT NOT NULL,
+	userId INT NOT NULL,
+	content TEXT NOT NULL,
+	timeUpdate TIMESTAMP NOT NULL,
+	timeDelete VARCHAR(19),
+	FOREIGN KEY (foodId) REFERENCES foods(foodId),
+	FOREIGN KEY (userId) REFERENCES users(userId),
+        PRIMARY KEY (commentId)
+);
+
+CREATE VIEW commentUser AS
+SELECT comments.commentId, comments.foodId, comments.userId, comments.content, comments.timeUpdate, users.username, users.avataUrl
+FROM comments, users
+WHERE comments.userId = users.userId AND comments.timeDelete IS NULL;
+
+CREATE VIEW foodUser AS
+SELECT foods.foodId,foods.userId,foods.title,foods.content,foods.timeUpdate, foods.numLike, foods.numComm, users.username, users.avataUrl
+FROM foods, users
+WHERE foods.userId = users.userId AND foods.timeDelete IS NULL;
+
+CREATE VIEW foodUserImage AS
+SELECT f.foodId, f.userId, f.title, f.content, f.timeUpdate, f.username, f.numLike, f.numComm, f.avataUrl, images.imageUrl
+FROM foodUser f, images
+WHERE f.foodId = images.foodId
+GROUP BY f.foodId;
+
+CREATE VIEW userLogin AS
+SELECT u.userId, u.username, u.password, u.email, u.avataUrl, u.timeUpdate, u.timeDelete, u.permission, l.timeLogin, l.timeLogout
+FROM users u, login l
+WHERE u.userId = l.userId
+GROUP BY u.userId;
