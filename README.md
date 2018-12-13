@@ -18,7 +18,7 @@ Following instructions will get you a copy of the project up and running on your
 
 * Download or Clone repo.
 * Goto download or clone location and rename .env-example file to .env (Its a hidden file).
-* Make the require changes in .env file. (SECTER and COOKIE_NAME are use only for live system).
+* Make the require changes in .env file. (SECRET and COOKIE_NAME are use only for live system).
 * Create a database using Database-for-piccial.txt
 * Comment following lines from app.js file as these are used on live system
   * at line 58
